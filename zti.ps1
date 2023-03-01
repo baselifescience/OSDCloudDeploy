@@ -17,4 +17,4 @@ Import-Module OSD -Force
 #Start OSDCloud ZTI the RIGHT way
 Write-Host  -ForegroundColor Cyan "Start OSDCloud with MY Parameters"
 # Start-OSDCloud -OSVersion "Windows 11" -OSLanguage en-us -OSBuild 22H2 -OSEdition Pro -ZTI -Firmware -Restart
-Invoke-Expression -Command (Invoke-RestMethod -Uri functions.osdcloud.com)
+Invoke-Expression -Command (Invoke-RestMethod -Uri sandbox.osdcloud.com)
