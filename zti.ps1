@@ -11,4 +11,4 @@ Install-Module OSD -Force
 Import-Module OSD -Force
 
 #Start OSDCloud ZTI the RIGHT way
-Start-OSDCloud -OSVersion "Windows 11" -OSLanguage en-us -OSBuild 22H2 -OSEdition Pro -ZTI -Firmware -Restart
+Start-OSDCloud -OSVersion "Windows 11" -OSLanguage "da-dk" -OSBuild "22H2" -OSEdition "Pro" -ZTI -Firmware -Restart
