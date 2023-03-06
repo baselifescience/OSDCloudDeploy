@@ -19,9 +19,9 @@ $Global:oobeCloud = @{
     oobeRemoveAppxPackageName = 'CommunicationsApps','OfficeHub','People','Skype','Solitaire','Xbox','ZuneMusic','ZuneVideo','MicrosoftTeams'
     oobeAddCapability = $true
     oobeAddCapabilityName = 'GroupPolicy','ServerManager','VolumeActivation'
-    oobeUpdateDrivers = $false
-    oobeUpdateWindows = $false
-    oobeRestartComputer = $false
+    oobeUpdateDrivers = $true
+    oobeUpdateWindows = $true
+    oobeRestartComputer = $true
     oobeStopComputer = $false
 }
 
