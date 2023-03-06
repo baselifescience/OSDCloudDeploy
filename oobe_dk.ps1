@@ -16,12 +16,12 @@ $Global:oobeCloud = @{
     oobeRegisterAutopilot = $false
     oobeRegisterAutopilotCommand = 'Get-WindowsAutopilotInfo -Online -GroupTag Demo -Assign'
     oobeRemoveAppxPackage = $true
-    oobeRemoveAppxPackageName = 'CommunicationsApps','OfficeHub','People','Skype','Solitaire','Xbox','ZuneMusic','ZuneVideo'
+    oobeRemoveAppxPackageName = 'CommunicationsApps','OfficeHub','People','Skype','Solitaire','Xbox','ZuneMusic','ZuneVideo','MicrosoftTeams'
     oobeAddCapability = $true
     oobeAddCapabilityName = 'GroupPolicy','ServerManager','VolumeActivation'
-    oobeUpdateDrivers = $true
-    oobeUpdateWindows = $true
-    oobeRestartComputer = $true
+    oobeUpdateDrivers = $false
+    oobeUpdateWindows = $false
+    oobeRestartComputer = $false
     oobeStopComputer = $false
 }
 
@@ -39,6 +39,7 @@ function Step-KeyboardLanguage {
     
     $LanguageList = Get-WinUserLanguageList
     $LanguageList.Remove(($LanguageList | Where-Object LanguageTag -like 'en-US'))
+    $LanguageList.Remove(($LanguageList | Where-Object LanguageTag -like 'en-GB'))
     Set-WinUserLanguageList $LanguageList -Force | Out-Null
 }
 function Step-oobeSetDisplay {
