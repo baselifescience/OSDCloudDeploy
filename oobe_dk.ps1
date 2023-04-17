@@ -69,7 +69,15 @@ function Step-KeyboardLanguage {
         Write-Host "English (United Kingdom) language entry not found."
     }
 
-    Set-WinSystemLocale "da-DK"
+    # Registry path and key name
+    $RegistryPath = 'HKU:\.DEFAULT\Keyboard Layout\Preload'
+    $KeyName = '1'
+
+    # Set the value to Danish keyboard layout
+    $DanishLayout = '00000406'
+    Set-ItemProperty -Path $RegistryPath -Name $KeyName -Value $DanishLayout -Force
+
+    Write-Host "The registry key has been updated with the Danish keyboard layout."
 }
 function Step-oobeSetDisplay {
     [CmdletBinding()]
