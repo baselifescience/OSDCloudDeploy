@@ -30,6 +30,7 @@ function Step-KeyboardLanguage {
     Write-Host -ForegroundColor Green "Set keyboard language to da-DK"
     Start-Sleep -Seconds 5
     
+    <#
     $LanguageList = Get-WinUserLanguageList
     
     $LanguageList.Add("da-DK")
@@ -41,6 +42,28 @@ function Step-KeyboardLanguage {
     $LanguageList.Remove(($LanguageList | Where-Object LanguageTag -like 'en-US'))
     $LanguageList.Remove(($LanguageList | Where-Object LanguageTag -like 'en-GB'))
     Set-WinUserLanguageList $LanguageList -Force | Out-Null
+    #>
+    
+    # Get the current WinUserLanguageList
+    $UserLanguageList = Get-WinUserLanguageList
+
+    # Find the language entry for English (United States)
+    $LanguageEntry = $UserLanguageList | Where-Object { $_.LanguageTag -eq "en-GB" }
+
+    if ($LanguageEntry) {
+        # Add the Danish keyboard layout (da-DK) as an Input Method Tip to the English language entry
+        $DanishIMT = "0406:00000406"
+        if (-not ($LanguageEntry.InputMethodTips -contains $DanishIMT)) {
+            $LanguageEntry.InputMethodTips.Add($DanishIMT)
+            Set-WinUserLanguageList $UserLanguageList -Force
+            Write-Host "Danish keyboard layout has been added as an Input Method Tip to English language entry."
+        } else {
+            Write-Host "Danish keyboard layout is already an Input Method Tip in English language entry."
+        }
+    } else {
+        Write-Host "English language entry not found."
+    }
+
     Set-WinSystemLocale "da-DK"
 }
 function Step-oobeSetDisplay {
