@@ -41,6 +41,7 @@ function Step-KeyboardLanguage {
     $LanguageList.Remove(($LanguageList | Where-Object LanguageTag -like 'en-US'))
     $LanguageList.Remove(($LanguageList | Where-Object LanguageTag -like 'en-GB'))
     Set-WinUserLanguageList $LanguageList -Force | Out-Null
+    Set-WinSystemLocale "da-DK"
 }
 function Step-oobeSetDisplay {
     [CmdletBinding()]
