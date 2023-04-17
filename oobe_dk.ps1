@@ -47,21 +47,26 @@ function Step-KeyboardLanguage {
     # Get the current WinUserLanguageList
     $UserLanguageList = Get-WinUserLanguageList
 
-    # Find the language entry for English (United States)
+    # Find the language entry for English (United Kingdom)
     $LanguageEntry = $UserLanguageList | Where-Object { $_.LanguageTag -eq "en-GB" }
 
     if ($LanguageEntry) {
-        # Add the Danish keyboard layout (da-DK) as an Input Method Tip to the English language entry
+        # Add the Danish keyboard layout (da-DK) as an Input Method Tip to the English (United Kingdom) language entry
         $DanishIMT = "0809:00000406"
+        $EnGbIMT = "0809:00000809"
+
         if (-not ($LanguageEntry.InputMethodTips -contains $DanishIMT)) {
             $LanguageEntry.InputMethodTips.Add($DanishIMT)
-            Set-WinUserLanguageList $UserLanguageList -Force
-            Write-Host "Danish keyboard layout has been added as an Input Method Tip to English language entry."
-        } else {
-            Write-Host "Danish keyboard layout is already an Input Method Tip in English language entry."
         }
+
+        if ($LanguageEntry.InputMethodTips -contains $EnGbIMT) {
+            $LanguageEntry.InputMethodTips.Remove($EnGbIMT)
+        }
+
+        Set-WinUserLanguageList $UserLanguageList -Force
+        Write-Host "Danish keyboard layout has been added, and English (United Kingdom) keyboard layout has been removed."
     } else {
-        Write-Host "English language entry not found."
+        Write-Host "English (United Kingdom) language entry not found."
     }
 
     Set-WinSystemLocale "da-DK"
