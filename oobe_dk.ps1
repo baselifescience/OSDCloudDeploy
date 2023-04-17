@@ -52,7 +52,7 @@ function Step-KeyboardLanguage {
 
     if ($LanguageEntry) {
         # Add the Danish keyboard layout (da-DK) as an Input Method Tip to the English language entry
-        $DanishIMT = "0406:00000406"
+        $DanishIMT = "0809:00000406"
         if (-not ($LanguageEntry.InputMethodTips -contains $DanishIMT)) {
             $LanguageEntry.InputMethodTips.Add($DanishIMT)
             Set-WinUserLanguageList $UserLanguageList -Force
