@@ -313,12 +313,12 @@ function Step-oobeStopComputer {
 #endregion
 
 # Execute functions
-Step-KeyboardLanguage
 Step-oobeExecutionPolicy
 Step-oobePackageManagement
 Step-oobeTrustPSGallery
 Step-oobeSetDisplay
 Step-oobeSetRegionLanguage
+Step-KeyboardLanguage
 Step-oobeSetDateTime
 # Step-oobeRegisterAutopilot
 Step-oobeRemoveAppxPackage
