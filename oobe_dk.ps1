@@ -352,7 +352,7 @@ Step-oobePackageManagement
 Step-oobeTrustPSGallery
 Step-oobeSetDisplay
 Step-oobeSetRegionLanguage
-Step-KeyboardLanguage
+# Step-KeyboardLanguage - doesn't work!
 Step-oobeSetDateTime
 # Step-oobeRegisterAutopilot
 Step-oobeRemoveAppxPackage
