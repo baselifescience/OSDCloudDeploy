@@ -14,7 +14,7 @@ $Global:oobeCloud = @{
     oobeSetRegionLanguage = $true
     oobeSetDateTime = $true
     oobeRegisterAutopilot = $true
-    oobeRegisterAutopilotCommand = 'Get-WindowsAutopilotInfo -Online -Assign'
+    oobeRegisterAutopilotCommand = 'Get-WindowsAutopilotInfo -Online'
     oobeRemoveAppxPackage = $true
     oobeRemoveAppxPackageName = 'CommunicationsApps','OfficeHub','People','Skype','Solitaire','Xbox','ZuneMusic','ZuneVideo','MicrosoftTeams'
     oobeAddCapability = $true
@@ -147,6 +147,7 @@ function Step-oobeInstallScriptAutopilot {
     [CmdletBinding()]
     param ()
     if ($env:UserName -eq 'defaultuser0') {
+        $env:Path += ";C:\Program Files\WindowsPowerShell\Scripts"
         $Requirement = Get-InstalledScript -Name Get-WindowsAutoPilotInfo -ErrorAction SilentlyContinue
         if (-not $Requirement)
         {
@@ -166,10 +167,12 @@ function Step-oobeRegisterAutopilot {
         Step-oobeInstallModuleAzureAd
         Step-oobeInstallScriptAutopilot
 
-        Write-Host -ForegroundColor Cyan 'Registering Device in Autopilot in new PowerShell window ' -NoNewline
-        $AutopilotProcess = Start-Process PowerShell.exe -ArgumentList "-Command $Command" -PassThru
-        Write-Host -ForegroundColor Green "(Process Id $($AutopilotProcess.Id))"
-        Return $AutopilotProcess
+        #Write-Host -ForegroundColor Cyan 'Registering Device in Autopilot in new PowerShell window ' -NoNewline
+        #$AutopilotProcess = Start-Process PowerShell.exe -ArgumentList "-Command $Command" -PassThru
+        #Write-Host -ForegroundColor Green "(Process Id $($AutopilotProcess.Id))"
+        #Return $AutopilotProcess
+        Write-Host -ForegroundColor Cyan 'Registering Device in Autopilot ' -NoNewline
+        Get-WindowsAutopilotInfo -Online
     }
 }
 function Step-oobeRemoveAppxPackage {
@@ -311,20 +314,19 @@ function Step-oobeStopComputer {
 #endregion
 
 # Execute functions
-Step-KeyboardLanguage
+# Step-KeyboardLanguage
 Step-oobeExecutionPolicy
 Step-oobePackageManagement
 Step-oobeTrustPSGallery
 Step-oobeSetDisplay
 Step-oobeSetRegionLanguage
 Step-oobeSetDateTime
-Step-oobeRegisterAutopilot Global:oobeCloud.oobeRegisterAutopilotCommand
+Step-oobeRegisterAutopilot
 Step-oobeRemoveAppxPackage
 # Step-oobeAddCapability
 Step-oobeUpdateDrivers
 Step-oobeUpdateWindows
 # Invoke-Webhook
 Step-oobeRestartComputer
-Step-oobeStopComputer
+# Step-oobeStopComputer
 #=================================================
-# hej
