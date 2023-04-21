@@ -13,8 +13,8 @@ $Global:oobeCloud = @{
     oobeSetDisplay = $true
     oobeSetRegionLanguage = $true
     oobeSetDateTime = $true
-    oobeRegisterAutopilot = $false
-    oobeRegisterAutopilotCommand = 'Get-WindowsAutopilotInfo -Online -GroupTag Demo -Assign'
+    oobeRegisterAutopilot = $true
+    oobeRegisterAutopilotCommand = 'Get-WindowsAutopilotInfo -Online -Assign'
     oobeRemoveAppxPackage = $true
     oobeRemoveAppxPackageName = 'CommunicationsApps','OfficeHub','People','Skype','Solitaire','Xbox','ZuneMusic','ZuneVideo','MicrosoftTeams'
     oobeAddCapability = $true
@@ -161,7 +161,7 @@ function Step-oobeRegisterAutopilot {
         [System.String]
         $Command
     )
-    if (($env:UserName -eq 'defaultuser0') -and ($Global:oobeCloud.oobeRegisterAutopilot -eq $true)) {
+    if (($env:UserName -eq 'defaultuser0') -and ($Global:oobeCloud.oobeRegisterAutopilot -eq $true) -and ($Command -ne "")) {
         Step-oobeInstallModuleAutopilot
         Step-oobeInstallModuleAzureAd
         Step-oobeInstallScriptAutopilot
@@ -318,7 +318,7 @@ Step-oobeTrustPSGallery
 Step-oobeSetDisplay
 Step-oobeSetRegionLanguage
 Step-oobeSetDateTime
-# Step-oobeRegisterAutopilot
+Step-oobeRegisterAutopilot Global:oobeCloud.oobeRegisterAutopilotCommand
 Step-oobeRemoveAppxPackage
 # Step-oobeAddCapability
 Step-oobeUpdateDrivers
