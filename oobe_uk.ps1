@@ -162,7 +162,7 @@ function Step-oobeRegisterAutopilot {
         [System.String]
         $Command
     )
-    if (($env:UserName -eq 'defaultuser0') -and ($Global:oobeCloud.oobeRegisterAutopilot -eq $true) -and ($Command -ne "")) {
+    if (($env:UserName -eq 'defaultuser0') -and ($Global:oobeCloud.oobeRegisterAutopilot -eq $true)) {
         Step-oobeInstallModuleAutopilot
         Step-oobeInstallModuleAzureAd
         Step-oobeInstallScriptAutopilot
