@@ -19,6 +19,7 @@ $Params = @{
     OSVersion = "Windows 11"
     OSBuild = "22H2"
     OSEdition = "Pro"
+    OSLicense = "Retail"
     OSLanguage = "en-gb"
     ZTI = $true
     Firmware = $true
