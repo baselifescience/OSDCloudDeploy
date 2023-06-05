@@ -194,7 +194,7 @@ function Step-oobeInstallScriptAutopilot {
         }
     }
 }
-function Step-oobeRegisterAutopilotOld {
+function Step-oobeRegisterAutopilot {
     [CmdletBinding()]
     param ()
     if (($env:UserName -eq 'defaultuser0') -and ($Global:oobeCloud.oobeRegisterAutopilot -eq $true)) {
