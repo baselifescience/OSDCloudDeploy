@@ -16,7 +16,7 @@ $Global:oobeCloud = @{
     oobeSetDisplay = $true
     oobeSetRegionLanguage = $true
     oobeSetDateTime = $true
-    oobeRegisterAutopilot = $true
+    oobeRegisterAutopilot = $false
     oobeRegisterAutopilotCommand = 'Get-WindowsAutopilotInfo -Online -GroupTag Demo -Assign'
     oobeRemoveAppxPackage = $true
     oobeRemoveAppxPackageName = 'CommunicationsApps','OfficeHub','People','Skype','Solitaire','Xbox','ZuneMusic','ZuneVideo','MicrosoftTeams'
@@ -194,6 +194,28 @@ function Step-oobeInstallScriptAutopilot {
         }
     }
 }
+function Step-oobeRegisterAutopilotOld {
+    [CmdletBinding()]
+    param ()
+    if (($env:UserName -eq 'defaultuser0') -and ($Global:oobeCloud.oobeRegisterAutopilot -eq $true)) {
+        Step-oobeInstallModuleAutopilot
+        Step-oobeInstallModuleAzureAd
+        Step-oobeInstallScriptAutopilot
+
+        #Write-Host -ForegroundColor Cyan 'Registering Device in Autopilot in new PowerShell window ' -NoNewline
+        #$AutopilotProcess = Start-Process PowerShell.exe -ArgumentList "-Command $Command" -PassThru
+        #Write-Host -ForegroundColor Green "(Process Id $($AutopilotProcess.Id))"
+        #Return $AutopilotProcess
+        Write-Host -ForegroundColor Cyan 'Registering Device in Autopilot ' -NoNewline
+        If ($GroupTag -ne "") {
+            Get-WindowsAutopilotInfo -Online -GroupTag $GroupTag -Assign
+        }
+        else {
+            Get-WindowsAutopilotInfo -Online -Assign
+        }
+    }
+}
+
 function Step-oobeRegisterAutopilot {
     [CmdletBinding()]
     param ()
@@ -215,6 +237,7 @@ function Step-oobeRegisterAutopilot {
         }
     }
 }
+
 function Step-oobeRemoveAppxPackage {
     if (($env:UserName -eq 'defaultuser0') -and ($Global:oobeCloud.oobeRemoveAppxPackage -eq $true)) {
         Write-Host -ForegroundColor Cyan 'Removing Appx Packages'
