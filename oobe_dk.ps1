@@ -1,5 +1,8 @@
 [CmdletBinding()]
-param()
+param(
+    [Parameter(Mandatory=$false)]
+    [string]$GroupTag = ""
+)
 #region Initialize
 
 #Start the Transcript
@@ -13,7 +16,7 @@ $Global:oobeCloud = @{
     oobeSetDisplay = $true
     oobeSetRegionLanguage = $true
     oobeSetDateTime = $true
-    oobeRegisterAutopilot = $false
+    oobeRegisterAutopilot = $true
     oobeRegisterAutopilotCommand = 'Get-WindowsAutopilotInfo -Online -GroupTag Demo -Assign'
     oobeRemoveAppxPackage = $true
     oobeRemoveAppxPackageName = 'CommunicationsApps','OfficeHub','People','Skype','Solitaire','Xbox','ZuneMusic','ZuneVideo','MicrosoftTeams'
@@ -193,19 +196,23 @@ function Step-oobeInstallScriptAutopilot {
 }
 function Step-oobeRegisterAutopilot {
     [CmdletBinding()]
-    param (
-        [System.String]
-        $Command
-    )
+    param ()
     if (($env:UserName -eq 'defaultuser0') -and ($Global:oobeCloud.oobeRegisterAutopilot -eq $true)) {
         Step-oobeInstallModuleAutopilot
         Step-oobeInstallModuleAzureAd
         Step-oobeInstallScriptAutopilot
 
-        Write-Host -ForegroundColor Cyan 'Registering Device in Autopilot in new PowerShell window ' -NoNewline
-        $AutopilotProcess = Start-Process PowerShell.exe -ArgumentList "-Command $Command" -PassThru
-        Write-Host -ForegroundColor Green "(Process Id $($AutopilotProcess.Id))"
-        Return $AutopilotProcess
+        #Write-Host -ForegroundColor Cyan 'Registering Device in Autopilot in new PowerShell window ' -NoNewline
+        #$AutopilotProcess = Start-Process PowerShell.exe -ArgumentList "-Command $Command" -PassThru
+        #Write-Host -ForegroundColor Green "(Process Id $($AutopilotProcess.Id))"
+        #Return $AutopilotProcess
+        Write-Host -ForegroundColor Cyan 'Registering Device in Autopilot ' -NoNewline
+        If ($GroupTag -ne "") {
+            Get-WindowsAutopilotInfo -Online -GroupTag $GroupTag -Assign
+        }
+        else {
+            Get-WindowsAutopilotInfo -Online -Assign
+        }
     }
 }
 function Step-oobeRemoveAppxPackage {
@@ -354,7 +361,7 @@ Step-oobeSetDisplay
 Step-oobeSetRegionLanguage
 # Step-KeyboardLanguage - doesn't work!
 Step-oobeSetDateTime
-# Step-oobeRegisterAutopilot
+Step-oobeRegisterAutopilot
 Step-oobeRemoveAppxPackage
 # Step-oobeAddCapability
 Step-oobeUpdateDrivers
