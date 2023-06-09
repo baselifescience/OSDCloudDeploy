@@ -194,27 +194,6 @@ function Step-oobeInstallScriptAutopilot {
         }
     }
 }
-function Step-oobeRegisterAutopilot {
-    [CmdletBinding()]
-    param ()
-    if (($env:UserName -eq 'defaultuser0') -and ($Global:oobeCloud.oobeRegisterAutopilot -eq $true)) {
-        Step-oobeInstallModuleAutopilot
-        Step-oobeInstallModuleAzureAd
-        Step-oobeInstallScriptAutopilot
-
-        #Write-Host -ForegroundColor Cyan 'Registering Device in Autopilot in new PowerShell window ' -NoNewline
-        #$AutopilotProcess = Start-Process PowerShell.exe -ArgumentList "-Command $Command" -PassThru
-        #Write-Host -ForegroundColor Green "(Process Id $($AutopilotProcess.Id))"
-        #Return $AutopilotProcess
-        Write-Host -ForegroundColor Cyan 'Registering Device in Autopilot ' -NoNewline
-        If ($GroupTag -ne "") {
-            Get-WindowsAutopilotInfo -Online -GroupTag $GroupTag -Assign
-        }
-        else {
-            Get-WindowsAutopilotInfo -Online -Assign
-        }
-    }
-}
 
 function Step-oobeRegisterAutopilot {
     [CmdletBinding()]
