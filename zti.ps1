@@ -5,4 +5,4 @@ Import-Module OSD -Force
 
 #Start OSDCloudScriptPad
 Write-Host -ForegroundColor Green "Start OSDPad"
-Start-OSDPad -RepoOwner woodyard -RepoName bls -RepoFolder ScriptPad -Hide Script -BrandingTitle 'BASE life science - Cloud Deployment'
+Start-OSDPad -RepoOwner baselifescience -RepoName OSDCloudDeploy -RepoFolder ScriptPad -Hide Script -BrandingTitle 'BASE life science - Cloud Deployment'
